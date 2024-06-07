@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import reset from "../assets/images/reset.svg";
 import deleteBtn from "../assets/images/delete-btn.svg";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,23 +15,63 @@ const CalForm: React.FC = () => {
     { details: "", amount: "" },
   ]);
   const { formData, setFormData } = useSalaryCalculator();
-  const [success, setSuccess] =   useState(false);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    // Load data from localStorage on component mount
+    const savedData = localStorage.getItem("salaryFormData");
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setBasicSalary(parsedData.basicSalary || "");
+      setAllowances(parsedData.allowances || 1);
+      setDeductions(parsedData.deductions || 1);
+      setAllowanceDetails(
+        parsedData.allowanceDetails || [{ title: "", amount: "", epf: false }]
+      );
+      setDeductionDetails(
+        parsedData.deductionDetails || [{ details: "", amount: "" }]
+      );
+    }
+  }, []);
+  const saveDataToLocalStorage = (data: {
+    basicSalary: string;
+    allowances: number;
+    deductionDetails: { details: string; amount: string }[];
+    allowanceDetails: { title: string; amount: string; epf: boolean }[];
+    deductions: number;
+  }) => {
+    localStorage.setItem("salaryFormData", JSON.stringify(data));
+  };
 
   const handleAddNewAllowance = () => {
     setAllowances(allowances + 1);
-    setAllowanceDetails([
+    const newAllowanceDetails = [
       ...allowanceDetails,
       { title: "", amount: "", epf: false },
-    ]);
+    ];
+    setAllowanceDetails(newAllowanceDetails);
+    saveDataToLocalStorage({
+      basicSalary,
+      allowances: allowances + 1,
+      deductionDetails,
+      allowanceDetails: newAllowanceDetails,
+      deductions,
+    });
   };
   const handleDeleteNewAllowance = (index: number) => {
-    // if (allowances !== 1) setAllowances(allowances - 1);
     if (allowances > 1) {
       setAllowances(allowances - 1);
       const newAllowanceDetails = allowanceDetails.filter(
         (_, i) => i !== index
       );
       setAllowanceDetails(newAllowanceDetails);
+      saveDataToLocalStorage({
+        basicSalary,
+        allowances: allowances - 1,
+        deductionDetails,
+        allowanceDetails: newAllowanceDetails,
+        deductions,
+      });
     }
   };
   const handleAllowanceChange = (index: number, field: any, value: any) => {
@@ -42,19 +82,54 @@ const CalForm: React.FC = () => {
       return allowance;
     });
     setAllowanceDetails(newAllowanceDetails);
+    saveDataToLocalStorage({
+      basicSalary,
+      allowances,
+      deductionDetails,
+      allowanceDetails: newAllowanceDetails,
+      deductions,
+    });
+  };
+  const handleBasicSalaryChange = (e: any) => {
+    setBasicSalary(e.target.value);
+    saveDataToLocalStorage({
+      basicSalary: e.target.value,
+      allowances,
+      deductionDetails,
+      allowanceDetails,
+      deductions,
+    });
   };
   const handleAddNewDeduction = () => {
     setDeductions(deductions + 1);
-    setDeductionDetails([...deductionDetails, { details: "", amount: "" }]);
+    const newDeductionDetails = [
+      ...deductionDetails,
+      { details: "", amount: "" },
+    ];
+    setDeductionDetails(newDeductionDetails);
+    saveDataToLocalStorage({
+      basicSalary,
+      allowances,
+      deductionDetails: newDeductionDetails,
+      allowanceDetails,
+      deductions: deductions + 1,
+    });
   };
+
   const handleDeleteNewDeduction = (index: number) => {
-    // if (deductions !== 1) setDeductions(deductions - 1);
     if (deductions > 1) {
       setDeductions(deductions - 1);
       const newDeductionDetails = deductionDetails.filter(
         (_, i) => i !== index
       );
       setDeductionDetails(newDeductionDetails);
+      saveDataToLocalStorage({
+        basicSalary,
+        allowances,
+        deductionDetails: newDeductionDetails,
+        allowanceDetails,
+        deductions: deductions - 1,
+      });
     }
   };
 
@@ -66,6 +141,13 @@ const CalForm: React.FC = () => {
       return deduction;
     });
     setDeductionDetails(newDeductionDetails);
+    saveDataToLocalStorage({
+      basicSalary,
+      allowances,
+      deductionDetails: newDeductionDetails,
+      allowanceDetails,
+      deductions,
+    });
   };
 
   const handleReset = () => {
@@ -92,6 +174,13 @@ const CalForm: React.FC = () => {
       employerEpf: 0,
       employerEtf: 0,
       apitDetails: { apitTaxPercentage: 0, constantValue: 0 },
+    });
+    saveDataToLocalStorage({
+      basicSalary: "",
+      allowances: 1,
+      deductionDetails: [{ details: "", amount: "" }],
+      allowanceDetails: [{ title: "", amount: "", epf: false }],
+      deductions: 1,
     });
   };
   const handleSubmit = () => {
@@ -194,6 +283,7 @@ const CalForm: React.FC = () => {
       apitDetails,
     };
     setFormData(data);
+    localStorage.setItem("salaryFormData", JSON.stringify(data));
     setSuccess(!success);
     console.log("submitted data", data);
   };
@@ -220,7 +310,7 @@ const CalForm: React.FC = () => {
             type="text"
             id="basic-salary-input"
             value={basicSalary}
-            onChange={(e) => setBasicSalary(e.target.value)}
+            onChange={(e) => handleBasicSalaryChange(e)}
           />{" "}
         </div>
       </div>
