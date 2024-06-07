@@ -15,7 +15,7 @@ const CalForm: React.FC = () => {
     { details: "", amount: "" },
   ]);
   const { formData, setFormData } = useSalaryCalculator();
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] =   useState(false);
 
   const handleAddNewAllowance = () => {
     setAllowances(allowances + 1);
@@ -74,6 +74,25 @@ const CalForm: React.FC = () => {
     setDeductions(1);
     setAllowanceDetails([{ title: "", amount: "", epf: false }]);
     setDeductionDetails([{ details: "", amount: "" }]);
+    setFormData({
+      baseSalary: 0,
+      allowanceDetails: [],
+      deductionDetails: [],
+      grossEarnings: 0,
+      grossDeductions: 0,
+      totalAllowances: 0,
+      apit: 0,
+      netSalary: 0,
+      ctc: 0,
+      totalEarnings: 0,
+      totalEarningsForEpf: 0,
+      totalEarningsForEpfwithoutBasic: 0,
+      grossSalaryForEpf: 0,
+      employeeEpf: 0,
+      employerEpf: 0,
+      employerEtf: 0,
+      apitDetails: { apitTaxPercentage: 0, constantValue: 0 },
+    });
   };
   const handleSubmit = () => {
     let totalAllowances: number = 0;
