@@ -1,4 +1,4 @@
-Install NodeJs from <link>
-Clone the repo from ….
-run "npm install" to …...
-run "npm start" to …..
+Install NodeJs from https://nodejs.org/en/download/package-manager
+Clone the repo from https://github.com/Hansi24/salary-calculator-2024-q1-hansi24
+Run "npm install" to install all the packages that are needed.
+Run "npm start" to run the application.
