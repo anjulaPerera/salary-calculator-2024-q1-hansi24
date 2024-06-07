@@ -1,194 +1,15 @@
-/* .page-container {
-    width: 100vw;
-    height: 100vh;
-    padding: 10px 300px 10px 300px;
-
-}
-
-.cal {
-    padding: 20px;
-    flex: 14;
-    flex-direction: column;
-    overflow-y: auto;
-    height: 520px;
-    border-radius: 5px;
-    border: 1px solid rgb(230, 227, 227);
-    box-shadow: 0px 0px 5px rgb(236, 236, 236);
-    background-color: rgb(250, 250, 250);
-}
-
-.answers {
-    padding-top: 0 !important;
-    flex: 10;
-    border-radius: 5px;
-    border: 1px solid rgb(230, 227, 227);
-    height: 520px;
-    box-shadow: 0px 0px 5px rgb(236, 236, 236);
-}
-
-.separator {
-    flex: 1;
-}
-
-.topic-text {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.topic-text-earnings {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 0 !important;
-}
-
-.reset-p {
-    color: #0052EA;
-    font-size: 14px;
-}
-
-.plus-ic {
-    color: #0052EA;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.add-n-a {
-    color: #0052EA;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.reset-btn {
-    background: none;
-    border: none;
-}
-
-.reset-p {
-    font-weight: 600;
-    margin: 0 0 0 6px !important;
-    padding: 0 !important;
-}
-
-.reset-ic {
-    height: 15px;
-}
-
-.tolabelic-text {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.basic-sal-ip {
-    margin-left: 2px;
-    padding: 6px;
-    border: 1px solid #E0E0E0;
-    border-radius: 3px;
-    height: 48px;
-    width: 50.5%;
-}
-
-.earnings-ip1 {
-    margin-left: 2px;
-    padding: 6px;
-    border: 1px solid #E0E0E0;
-    border-radius: 3px;
-    height: 48px;
-    width: 30%;
-    margin-right: 2px;
-}
-
-.earnings-ip2 {
-    margin-left: 2px;
-    padding: 6px;
-    border: 1px solid #E0E0E0;
-    border-radius: 3px;
-    height: 48px;
-    width: 20%;
-    text-align: right;
-}
-
-.sub-text-earnings {
-    font-size: 12px;
-    font-weight: 400;
-}
-
-.delete-btn {
-    border: none;
-    background: none;
-}
-
-.epf-cb {
-    margin: 0 3px 0 0;
-}
-
-.add-new-allowance {
-    cursor: pointer;
-}
-
-.horizontal-line {
-    height: 1px;
-    background-color: rgb(224, 223, 223);
-    margin: 10px 0 10px 0;
-}
-
-.contribution-table {
-    text-align: left;
-    width: 98%;
-}
-
-.items-table {
-    text-align: left;
-    width: 98%;
-}
-
-.net-sal-texts {
-    width: 98%;
-}
-
-.net-salary {
-    border: 1px solid #E0E0E0;
-    padding: 8px 6px 8px 5px;
-    border-radius: 5px;
-
-}
-
-.p-0 {
-    padding: 0 !important;
-}
-
-.m-0 {
-    margin: 0 !important;
-}
-
-
-.text-align-right {
-    text-align: right;
-}
-
-.text-align-left {
-    text-align: left;
-}
-
-thead {
-    height: 50px;
-}
-
-.net-sal-text {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.table-head-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: #757575;
-} */
-
 .page-container {
     width: 100vw;
     height: 100vh;
     padding: 10px 300px 10px 300px;
-    /* overflow: hidden; */
+}
+
+.content-wrapper {
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+
 }
 
 .cal {
@@ -196,11 +17,17 @@ thead {
     flex: 14;
     flex-direction: column;
     overflow-y: auto;
-    height: 520px;
+    height: auto;
+    min-height: 520px;
+    max-height: 95vh;
     border-radius: 5px;
     border: 1px solid rgb(230, 227, 227);
     box-shadow: 0px 0px 5px rgb(236, 236, 236);
     background-color: rgb(250, 250, 250);
+    position: relative;
+    /* Ensure the position is relative or absolute */
+    top: 0;
+    /* Keep the top fixed */
 }
 
 .answers {
@@ -208,8 +35,9 @@ thead {
     flex: 10;
     border-radius: 5px;
     border: 1px solid rgb(230, 227, 227);
-    height: 520px;
+    height: 100% !important;
     box-shadow: 0px 0px 5px rgb(236, 236, 236);
+    min-height: 520px;
 }
 
 .separator {

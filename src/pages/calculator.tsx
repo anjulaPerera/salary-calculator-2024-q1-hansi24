@@ -7,9 +7,11 @@ import Result from "../components/result";
 const Calculator: React.FC = () => {
   return (
     <div className="page-container d-flex justify-content-center align-items-center">
-      <CalForm />
-      <div className="separator"></div>
-      <Result />
+      <div className="content-wrapper d-flex justify-content-center align-items-center">
+        <CalForm />
+        <div className="separator"></div>
+        <Result />
+      </div>
     </div>
   );
 };
