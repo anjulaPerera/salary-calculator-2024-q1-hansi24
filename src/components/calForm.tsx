@@ -316,7 +316,12 @@ const CalForm: React.FC = () => {
           {success ? (
             <p className="success-msg">Data submitted successfully</p>
           ) : null}
-          <button onClick={handleSubmit}>Submit</button>
+          <button
+            className="btn btn-sm btn-primary w-50"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
