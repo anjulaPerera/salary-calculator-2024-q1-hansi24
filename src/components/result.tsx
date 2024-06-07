@@ -22,23 +22,41 @@ const Result: React.FC = () => {
           <tbody>
             <tr>
               <td>Basic Salary</td>
-              <td className="text-align-right">1000</td>
+              <td className="text-align-right">
+                {formData.baseSalary ? formData.baseSalary : <span>-</span>}
+              </td>
             </tr>
             <tr>
               <td>Gross Earning</td>
-              <td className="text-align-right">200</td>
+              <td className="text-align-right">
+                {formData.grossEarnings ? (
+                  formData.grossEarnings
+                ) : (
+                  <span>-</span>
+                )}
+              </td>
             </tr>
             <tr>
               <td>Gross Deduction</td>
-              <td className="text-align-right">100</td>
+              <td className="text-align-right">
+                {formData.grossDeductions ? (
+                  formData.grossDeductions
+                ) : (
+                  <span>-</span>
+                )}
+              </td>
             </tr>
             <tr>
               <td>Employee EPF (8%)</td>
-              <td className="text-align-right">1100</td>
+              <td className="text-align-right">
+                {formData.employeeEpf ? formData.employeeEpf : <span>-</span>}
+              </td>
             </tr>
             <tr>
               <td>APIT</td>
-              <td className="text-align-right">1100</td>
+              <td className="text-align-right">
+                {formData.apit ? formData.apit : <span>-</span>}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -46,7 +64,9 @@ const Result: React.FC = () => {
       <div className="net-salary mt-3 w-100 mt-2 d-flex justify-content-center align-items-center">
         <div className="net-sal-texts d-flex justify-content-between align-items-center ">
           <p className="p-0 m-0 net-sal-text">Net Salary (Take Home)</p>
-          <p className="p-0 m-0 net-sal-text">2000</p>
+          <p className="p-0 m-0 net-sal-text">
+            {formData.netSalary ? formData.netSalary : <span>-</span>}
+          </p>
         </div>
       </div>
       <div className="contibution-container d-flex w-100 justify-content-between align-items-center">
@@ -61,15 +81,21 @@ const Result: React.FC = () => {
           <tbody>
             <tr>
               <td>Employer EPF (12%)</td>
-              <td className="text-align-right">1000</td>
+              <td className="text-align-right">
+                {formData.employerEpf ? formData.employerEpf : <span>-</span>}
+              </td>
             </tr>
             <tr>
               <td>Employer ETF (3%)</td>
-              <td className="text-align-right">200</td>
+              <td className="text-align-right">
+                {formData.employerEtf ? formData.employerEtf : <span>-</span>}
+              </td>
             </tr>
             <tr>
               <td>CTC (Cost to Company)</td>
-              <td className="text-align-right">1100</td>
+              <td className="text-align-right">
+                {formData.ctc ? formData.ctc : <span>-</span>}
+              </td>
             </tr>
           </tbody>
         </table>
