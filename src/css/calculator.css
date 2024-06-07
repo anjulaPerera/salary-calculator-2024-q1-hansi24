@@ -236,12 +236,22 @@ thead {
     color: #0052EA;
     font-size: 14px;
     font-weight: 500;
+    margin-bottom: 0 !important;
 }
 
 .add-n-a {
     color: #0052EA;
     font-size: 14px;
     font-weight: 500;
+    margin-bottom: 0 !important;
+}
+
+.add-n-a.ded {
+    margin-bottom: 5px !important;
+}
+
+.plus-ic.ded {
+    margin-bottom: 5px !important;
 }
 
 .reset-btn {
@@ -270,7 +280,7 @@ thead {
     border: 1px solid #E0E0E0;
     border-radius: 3px;
     height: 48px;
-    width: 50.5%;
+    width: 60.5%;
 }
 
 .earnings-ip1 {
@@ -279,7 +289,7 @@ thead {
     border: 1px solid #E0E0E0;
     border-radius: 3px;
     height: 48px;
-    width: 30%;
+    width: 40%;
     margin-right: 2px;
 }
 
@@ -296,6 +306,7 @@ thead {
 .sub-text-earnings {
     font-size: 12px;
     font-weight: 400;
+    margin-bottom: 2px !important;
 }
 
 .delete-btn {

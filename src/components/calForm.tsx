@@ -205,7 +205,7 @@ const CalForm: React.FC = () => {
           />{" "}
         </div>
       </div>
-      <div className="earnings d-flex w-100 justify-content-between align-items-center">
+      <div className="earnings d-flex w-100 justify-content-between align-items-center mt-3">
         <div className="d-flex flex-column w-100">
           <div className="d-flex flex-column align-items-start">
             <p className="topic-text-earnings">Earnings</p>
@@ -310,8 +310,8 @@ const CalForm: React.FC = () => {
             className="add-new-allowance d-flex justify-content-start align-items-center"
             onClick={handleAddNewDeduction}
           >
-            <p className="plus-ic">+</p>
-            <p className="add-n-a">Add New Deduction</p>
+            <p className="plus-ic ded">+</p>
+            <p className="add-n-a ded">Add New Deduction</p>
           </div>
           {success ? (
             <p className="success-msg">Data submitted successfully</p>
