@@ -371,7 +371,7 @@ thead {
 /* Existing media queries */
 @media (min-width: 1200px) {
     .page-container {
-        padding: 20px 300px;
+        padding: 20px 200px;
     }
 }
 
