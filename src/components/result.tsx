@@ -53,7 +53,6 @@ const Result: React.FC = () => {
         <table className="contribution-table">
           <thead>
             <tr>
-              {" "}
               <td className="table-head-text">
                 Contribution from tde Employer
               </td>
