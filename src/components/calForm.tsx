@@ -15,6 +15,7 @@ const CalForm: React.FC = () => {
     { details: "", amount: "" },
   ]);
   const { formData, setFormData } = useSalaryCalculator();
+  const [success, setSuccess] = useState(false);
 
   const handleAddNewAllowance = () => {
     setAllowances(allowances + 1);
@@ -75,14 +76,107 @@ const CalForm: React.FC = () => {
     setDeductionDetails([{ details: "", amount: "" }]);
   };
   const handleSubmit = () => {
+    let totalAllowances: number = 0;
+    let totalEarningsForEpfwithoutBasic: number = 0;
+    let totalEarningsForEpf: number = 0;
+    for (let i = 0; i < allowanceDetails.length; i++) {
+      totalAllowances = totalAllowances + parseInt(allowanceDetails[i].amount);
+      if (allowanceDetails[i].epf) {
+        console.log("allowanceDetails[i].epf", allowanceDetails[i].epf);
+        totalEarningsForEpfwithoutBasic =
+          totalEarningsForEpfwithoutBasic +
+          parseInt(allowanceDetails[i].amount);
+      }
+    }
+    console.log("totalAllowances", totalAllowances);
+    let grossDeductions: number = 0;
+
+    let grossSalaryForEpf: number = 0;
+    for (let i = 0; i < deductionDetails.length; i++) {
+      grossDeductions = grossDeductions + parseInt(deductionDetails[i].amount);
+    }
+
+    totalEarningsForEpf =
+      totalEarningsForEpfwithoutBasic + parseInt(basicSalary);
+    console.log("grossDeductions", grossDeductions);
+    grossSalaryForEpf = totalEarningsForEpf - grossDeductions;
+
+    let employeeEpf: number = grossSalaryForEpf * 0.08;
+    let employerEpf: number = grossSalaryForEpf * 0.12;
+    let employerEtf: number = grossSalaryForEpf * 0.03;
+
+    let totalEarnings: number = parseInt(basicSalary) + totalAllowances;
+
+    let grossEarnings: number = totalEarnings - grossDeductions;
+
+    function calculateAPITTax(totalEarnings: number) {
+      let apitTaxPercentage = 0;
+      let constantValue = 0;
+      let apitDetails = {
+        apitTaxPercentage: 0,
+        constantValue: 0,
+      };
+
+      if (totalEarnings <= 100000) {
+        apitTaxPercentage = 0;
+        constantValue = 0;
+      } else if (totalEarnings <= 141667) {
+        apitTaxPercentage = 6 / 100;
+        constantValue = 6000;
+      } else if (totalEarnings <= 183333) {
+        apitTaxPercentage = 12 / 100;
+        constantValue = 14500;
+      } else if (totalEarnings <= 225000) {
+        apitTaxPercentage = 18 / 100;
+        constantValue = 25500;
+      } else if (totalEarnings <= 266667) {
+        apitTaxPercentage = 24 / 100;
+        constantValue = 39000;
+      } else if (totalEarnings <= 308333) {
+        apitTaxPercentage = 30 / 100;
+        constantValue = 55000;
+      } else {
+        apitTaxPercentage = 36 / 100;
+        constantValue = 73500;
+      }
+
+      apitDetails.apitTaxPercentage = apitTaxPercentage;
+      apitDetails.constantValue = constantValue;
+
+      return apitDetails;
+    }
+    const apitDetails = calculateAPITTax(totalEarnings);
+    const apitPre: number = grossEarnings * apitDetails.apitTaxPercentage;
+    console.log("apitPre", apitPre);
+    const apit: number = apitPre - apitDetails.constantValue;
+
+    const netSalary = grossEarnings - employeeEpf - apit;
+    const ctc = grossEarnings + employerEpf + employerEtf;
+
+    const baseSalary = parseInt(basicSalary);
+
     const data = {
-      basicSalary,
+      baseSalary,
       allowanceDetails,
       deductionDetails,
+      grossEarnings,
+      grossDeductions,
+      totalAllowances,
+      apit,
+      netSalary,
+      ctc,
+      totalEarnings,
+      totalEarningsForEpf,
+      totalEarningsForEpfwithoutBasic,
+      grossSalaryForEpf,
+      employeeEpf,
+      employerEpf,
+      employerEtf,
+      apitDetails,
     };
     setFormData(data);
+    setSuccess(!success);
     console.log("submitted data", data);
-    // toast.success("Your form has been submitted successfully!");
   };
 
   return (
@@ -219,10 +313,12 @@ const CalForm: React.FC = () => {
             <p className="plus-ic">+</p>
             <p className="add-n-a">Add New Deduction</p>
           </div>
+          {success ? (
+            <p className="success-msg">Data submitted successfully</p>
+          ) : null}
           <button onClick={handleSubmit}>Submit</button>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

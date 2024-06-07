@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 // Define the shape of your form data
 interface FormData {
-  basicSalary: string;
+  baseSalary: number;
   allowanceDetails: Allowance[];
   deductionDetails: Deduction[];
 }
@@ -28,7 +28,7 @@ interface SalaryCalculatorContextType {
 // Create the context
 const SalaryCalculatorContext = createContext<SalaryCalculatorContextType>({
   formData: {
-    basicSalary: "",
+    baseSalary: 0,
     allowanceDetails: [],
     deductionDetails: [],
   },
@@ -38,7 +38,7 @@ const SalaryCalculatorContext = createContext<SalaryCalculatorContextType>({
 // Create a provider component
 export const SalaryCalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [formData, setFormData] = useState<FormData>({
-    basicSalary: "",
+    baseSalary: 0,
     allowanceDetails: [],
     deductionDetails: [],
   });
